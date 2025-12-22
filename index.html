@@ -1,0 +1,179 @@
+
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Motocykliści Toruń</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #eaeaea;
+}
+
+header {
+  padding: 60px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #120000, #000);
+}
+
+header h1 {
+  color: #ff2a2a;
+  font-size: 42px;
+}
+
+section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h2 {
+  color: #ff2a2a;
+}
+
+#map {
+  height: 70vh;
+  border-radius: 12px;
+}
+
+button {
+  background: #ff2a2a;
+  border: none;
+  color: white;
+  padding: 12px 18px;
+  margin: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+td, th {
+  border: 1px solid #222;
+  padding: 10px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Motocykliści Toruń</h1>
+  <p>Planowanie tras • Społeczność • Pasja</p>
+</header>
+
+<section>
+  <h2>Dlaczego motocykle?</h2>
+  <p>
+    Motocykl to coś więcej niż pojazd. To wolność, adrenalina i pełne
+    skupienie na drodze. Każda trasa to osobna historia, a każda
+    przejażdżka to oderwanie się od codzienności.
+  </p>
+</section>
+
+<section>
+  <h2>Planowanie trasy</h2>
+  <div id="map"></div>
+  <p id="info">Kliknij dwa punkty na mapie</p>
+  <button onclick="resetMap()">Wyczyść mapę</button>
+  <button onclick="copyLink()">Kopiuj trasę do Google Maps</button>
+</section>
+
+<section>
+  <h2>Marki i modele motocykli</h2>
+  <div id="brands"></div>
+  <div id="models"></div>
+</section>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+const map = L.map('map').setView([53.0138, 18.5984], 11);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+let markers = [];
+let routeLayer = null;
+let googleLink = "";
+
+map.on('click', async e => {
+  if (markers.length === 2) resetMap();
+
+  const marker = L.marker(e.latlng).addTo(map);
+  markers.push(marker);
+
+  if (markers.length === 2) {
+    const p1 = markers[0].getLatLng();
+    const p2 = markers[1].getLatLng();
+
+    const url = `https://router.project-osrm.org/route/v1/driving/${p1.lng},${p1.lat};${p2.lng},${p2.lat}?overview=full&geometries=geojson`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    routeLayer = L.geoJSON(data.routes[0].geometry).addTo(map);
+    const km = (data.routes[0].distance / 1000).toFixed(1);
+    document.getElementById("info").innerText = `Dystans: ${km} km`;
+
+    googleLink = `https://www.google.com/maps/dir/${p1.lat},${p1.lng}/${p2.lat},${p2.lng}`;
+  }
+});
+
+function resetMap() {
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  if (routeLayer) map.removeLayer(routeLayer);
+  routeLayer = null;
+  googleLink = "";
+  document.getElementById("info").innerText = "Kliknij dwa punkty na mapie";
+}
+
+function copyLink() {
+  if (!googleLink) return alert("Najpierw wybierz trasę");
+  navigator.clipboard.writeText(googleLink);
+  alert("Link skopiowany!");
+}
+
+fetch("data/motorcycles.json")
+  .then(res => res.json())
+  .then(data => {
+    const brandsDiv = document.getElementById("brands");
+    const modelsDiv = document.getElementById("models");
+
+    Object.keys(data).forEach(brand => {
+      const btn = document.createElement("button");
+      btn.textContent = brand;
+      btn.onclick = () => showBrand(brand);
+      brandsDiv.appendChild(btn);
+    });
+
+    function showBrand(brand) {
+      modelsDiv.innerHTML = `<h3>${brand}</h3>`;
+      Object.keys(data[brand]).forEach(year => {
+        let html = `<h4>${year}</h4><table>
+          <tr><th>Model</th><th>Cena (PLN)</th></tr>`;
+
+        data[brand][year].forEach(m => {
+          html += `<tr>
+            <td>${m.model}</td>
+            <td>${m.price.min} – ${m.price.max}</td>
+          </tr>`;
+        });
+
+        html += "</table>";
+        modelsDiv.innerHTML += html;
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
