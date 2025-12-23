@@ -1,0 +1,48 @@
+{
+  "Honda": {
+    "2020": [
+      {
+        "model": "Africa Twin CRF1000L",
+        "price": { "min": 45000, "max": 65000 }
+      },
+      {
+        "model": "CB500X",
+        "price": { "min": 25000, "max": 35000 }
+      }
+    ],
+    "2015": [
+      {
+        "model": "NC750X",
+        "price": { "min": 18000, "max": 26000 }
+      }
+    ]
+  },
+  "Yamaha": {
+    "2020": [
+      {
+        "model": "Ténéré 700",
+        "price": { "min": 38000, "max": 52000 }
+      }
+    ],
+    "2017": [
+      {
+        "model": "Tracer 700",
+        "price": { "min": 27000, "max": 36000 }
+      }
+    ]
+  },
+  "KTM": {
+    "2019": [
+      {
+        "model": "790 Adventure",
+        "price": { "min": 38000, "max": 52000 }
+      }
+    ],
+    "2016": [
+      {
+        "model": "1290 Super Adventure",
+        "price": { "min": 45000, "max": 65000 }
+      }
+    ]
+  }
+}

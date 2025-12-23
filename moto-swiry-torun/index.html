@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Moto Świry Toruń</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+  <!-- Główny CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <h1 class="logo-title">Moto Świry Toruń</h1>
+      <p class="logo-subtitle">Trasy • Adventure • Społeczność</p>
+      <div id="userInfo"></div>
+      <div id="authButtons">
+        <button class="btn primary" onclick="openAuthModal()">Zaloguj / Zarejestruj</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2>Dlaczego motocykle adventure?</h2>
+      <p>
+        Motocykl to wolność, zwłaszcza gdy asfalt się kończy, a droga zamienia się w szuter.
+        Moto Świry Toruń to społeczność, która żyje trasami, mapami i zapachem paliwa.
+        Planowanie wspólnych wyjazdów to dopiero początek historii.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Szybkie planowanie trasy</h2>
+      <p>
+        Kliknij dwa punkty na mapie Polski, a zobaczysz przybliżoną trasę i dystans.
+        Idealne do szybkich pomysłów na spontaniczny wypad.
+      </p>
+      <div id="mainMap" class="map"></div>
+      <p id="info">Kliknij dwa punkty na mapie</p>
+      <button class="btn" onclick="resetMainMap()">Wyczyść mapę</button>
+      <button class="btn" onclick="copyMainLink()">Kopiuj trasę do Google Maps</button>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Proponowane trasy społeczności</h2>
+        <button class="btn primary" onclick="openRouteModal()">+ Propozycja trasy</button>
+      </div>
+      <p>
+        Zaloguj się, zaproponuj trasę, zdobądź punkty i zbierz ekipę na wyjazd.
+        Każda propozycja to nowa przygoda.
+      </p>
+      <div id="routesList" class="routes-list"></div>
+    </section>
+
+    <section class="section">
+      <h2>Ranking Moto Świrów</h2>
+      <p>
+        Każda dodana trasa to +1 punkt. Im więcej inicjatywy, tym wyżej w rankingu.
+      </p>
+      <div id="ranking" class="ranking-list"></div>
+    </section>
+
+    <section class="section">
+      <h2>Marki i modele motocykli</h2>
+      <p>Sprawdź orientacyjne ceny motocykli różnych marek i roczników.</p>
+      <div id="brands" class="brands-buttons"></div>
+      <div id="models" class="models-tables"></div>
+    </section>
+  </main>
+
+  <!-- Modal: logowanie / rejestracja -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal">
+      <h3>Logowanie / Rejestracja</h3>
+      <label>Email</label>
+      <input type="email" id="authEmail">
+      <label>Hasło</label>
+      <input type="password" id="authPassword">
+      <label>Imię i nazwisko</label>
+      <input type="text" id="authName">
+      <label>Motocykl</label>
+      <input type="text" id="authBike" placeholder="Np. Honda Africa Twin 1000">
+      <div class="modal-actions">
+        <button class="btn primary" onclick="register()">Zarejestruj</button>
+        <button class="btn" onclick="login()">Zaloguj</button>
+        <button class="btn secondary" onclick="closeAuthModal()">Zamknij</button>
+      </div>
+      <div id="authMessage" class="message"></div>
+    </div>
+  </div>
+
+  <!-- Modal: nowa propozycja trasy -->
+  <div class="modal-overlay" id="routeModal">
+    <div class="modal modal-wide">
+      <h3>Nowa propozycja trasy</h3>
+      <label>Nazwa / opis trasy</label>
+      <input type="text" id="routeTitle" placeholder="Np. Szutrowa pętla nad Wisłą">
+      <label>Krótki opis trasy</label>
+      <textarea id="routeDescription" rows="3" placeholder="Np. Lekki szuter, widok na Wisłę, ok. 120 km."></textarea>
+      <p>Kliknij dwa punkty na mapie poniżej, aby wybrać trasę:</p>
+      <div id="routeMap" class="map small-map"></div>
+      <p id="routeInfo">Dystans: -</p>
+      <div class="modal-actions">
+        <button class="btn primary" onclick="saveRoute()">Zapisz trasę</button>
+        <button class="btn secondary" onclick="closeRouteModal()">Zamknij</button>
+      </div>
+      <div id="routeMessage" class="message"></div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <!-- Firebase SDK (compat) -->
