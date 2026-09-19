@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Moto Świry Toruń — planer tras, społeczność i ranking motocyklistów</title>
+  <meta name="description" content="Moto Świry Toruń: planuj trasy motocyklowe na interaktywnej mapie, dziel się nimi z ekipą, zbieraj punkty w rankingu i przeglądaj katalog motocykli z cenami.">
+  <meta name="theme-color" content="#0b0d0c">
+  <meta name="color-scheme" content="dark light">
+  <link rel="canonical" href="https://kotixeszkere93-commits.github.io/motocykle-torun/">
+
+  <!-- Social / Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="Moto Świry Toruń">
+  <meta property="og:title" content="Moto Świry Toruń — trasy, adventure, społeczność">
+  <meta property="og:description" content="Zaplanuj trasę, zbierz ekipę i wskocz w ranking motocyklistów z Torunia i okolic.">
+  <meta property="og:url" content="https://kotixeszkere93-commits.github.io/motocykle-torun/">
+  <meta property="og:image" content="https://kotixeszkere93-commits.github.io/motocykle-torun/assets/img/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Ikony i PWA -->
+  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Leaflet (lokalnie, bez CDN — działa też offline) -->
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsClub",
+    "name": "Moto Świry Toruń",
+    "description": "Społeczność motocyklistów z Torunia i okolic — planowanie tras, wspólne wyjazdy, katalog motocykli.",
+    "url": "https://kotixeszkere93-commits.github.io/motocykle-torun/",
+    "areaServed": "Polska",
+    "address": { "@type": "PostalAddress", "addressLocality": "Toruń", "addressCountry": "PL" }
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Przejdź do treści</a>
+
+  <!-- Pasek informacyjny (tryb lokalny / offline) -->
+  <div id="systemBar" class="system-bar is-hidden" role="status"></div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="#/" aria-label="Moto Świry Toruń — strona główna">
+        <img class="brand-mark" src="assets/img/emblem.png" alt="" width="44" height="44" decoding="async">
+        <span class="brand-text">
+          <strong>Moto&nbsp;Świry</strong>
+          <span>Toruń</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" id="siteNav" aria-label="Nawigacja główna">
+        <a href="#/"        data-nav="start">Start</a>
+        <a href="#/planer"  data-nav="planer">Planer trasy</a>
+        <a href="#/trasy"   data-nav="trasy">Trasy</a>
+        <a href="#/ranking" data-nav="ranking">Ranking</a>
+        <a href="#/garaz"   data-nav="garaz">Garaż</a>
+        <a href="#/poradnik" data-nav="poradnik">Poradnik</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-ghost btn-icon is-hidden" id="installBtn" type="button" title="Zainstaluj aplikację">
+          <span class="ico" data-ico="download" aria-hidden="true"></span>
+          <span class="sr-only">Zainstaluj aplikację</span>
+        </button>
+        <button class="btn btn-ghost btn-icon" id="themeToggle" type="button" title="Motyw jasny / ciemny">
+          <span class="ico" data-ico="moon" aria-hidden="true"></span>
+          <span class="sr-only">Zmień motyw</span>
+        </button>
+        <div class="auth-area" id="authArea">
+          <!-- Wypełniane przez js/auth.js -->
+          <button class="btn btn-primary" type="button" data-action="open-auth">
+            <span class="ico" data-ico="user" aria-hidden="true"></span>
+            <span class="hide-xs">Zaloguj / Zarejestruj</span><span class="hide-sm-up">Konto</span>
+          </button>
+        </div>
+        <button class="btn btn-ghost btn-icon menu-toggle" id="menuToggle" type="button"
+                aria-label="Menu" aria-expanded="false" aria-controls="siteNav">
+          <span class="ico" data-ico="menu" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================ START -->
+    <section class="view" id="view-start" data-view="start">
+      <div class="hero">
+        <img class="hero-bg" src="assets/img/hero.jpg" alt="" fetchpriority="high" decoding="async">
+        <div class="hero-scrim"></div>
+        <div class="container hero-inner">
+          <p class="eyebrow"><span class="dot"></span> Toruń · Kujawy · Bory Tucholskie · cała Polska</p>
+          <h1>Asfalt się kończy,<br><span class="accent">ekipa dopiero zaczyna.</span></h1>
+          <p class="hero-lead">
+            Planuj trasy motocyklowe w kilka kliknięć, dziel się nimi ze społecznością,
+            zbieraj punkty i wpadaj na wspólne wyjazdy. Wszystko w jednym miejscu — mapa,
+            dystans, czas jazdy, koszt paliwa i ludzie, którzy jadą tak samo jak Ty.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="#/planer">
+              <span class="ico" data-ico="route" aria-hidden="true"></span> Zaplanuj trasę
+            </a>
+            <a class="btn btn-outline btn-lg" href="#/trasy">
+              <span class="ico" data-ico="compass" aria-hidden="true"></span> Zobacz trasy ekipy
+            </a>
+          </div>
+          <dl class="hero-stats" id="heroStats">
+            <div class="hero-stat"><dt>Trasy w bazie</dt><dd id="statRoutes">—</dd></div>
+            <div class="hero-stat"><dt>Motocykliści</dt><dd id="statRiders">—</dd></div>
+            <div class="hero-stat"><dt>Zaplanowane km</dt><dd id="statKm">—</dd></div>
+            <div class="hero-stat"><dt>Spoty i warsztaty</dt><dd id="statPoi">—</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head">
+          <h2>Wszystko, czego brakuje w grupce na Messengerze</h2>
+          <p class="section-sub">Bo ustalanie wyjazdu w 400 wiadomościach to nie jest plan.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card feature-card">
+            <span class="ico ico-lg" data-ico="route" aria-hidden="true"></span>
+            <h3>Planer z prawdziwą trasą</h3>
+            <p>Klikasz punkty — dostajesz rzeczywisty przebieg drogi, dystans, czas jazdy i prognozę pogody. Bez rysowania patyków na mapie.</p>
+          </article>
+          <article class="card feature-card">
+            <span class="ico ico-lg" data-ico="users" aria-hidden="true"></span>
+            <h3>Ekipa zamiast chaosu</h3>
+            <p>Jedna trasa, jeden zapis: kto jedzie, kto wrzucił zmianę, co ustaliliście w komentarzach. Zero „a gdzie zbiórka?”.</p>
+          </article>
+          <article class="card feature-card">
+            <span class="ico ico-lg" data-ico="trophy" aria-hidden="true"></span>
+            <h3>Ranking, który motywuje</h3>
+            <p>Punkty za trasy, udział w wyjazdach i propozycje zmian. Odznaki za szuter, maratony i odkrywanie nowych dróg.</p>
+          </article>
+          <article class="card feature-card">
+            <span class="ico ico-lg" data-ico="bike" aria-hidden="true"></span>
+            <h3>Garaż w przeglądarce</h3>
+            <p>Katalog marek i modeli z realnymi widełkami cen, mocą, masą i spalaniem. Ustaw swój motocykl — planer policzy koszt paliwa.</p>
+          </article>
+          <article class="card feature-card">
+            <span class="ico ico-lg" data-ico="download" aria-hidden="true"></span>
+            <h3>GPX, Google Maps, offline</h3>
+            <p>Eksportuj trasę do nawigacji, kopiuj link, instaluj jako aplikację. Lista punktów zostaje w kieszeni, gdy w Bory nie ma zasięgu.</p>
+          </article>
+          <article class="card feature-card">
+            <span class="ico ico-lg" data-ico="shield" aria-hidden="true"></span>
+            <h3>Bezpieczeństwo i zasady</h3>
+            <p>Checklista sprzętu, zasady jazdy w grupie i rozsądne tempo. Bo najlepsza trasa to ta, po której wracasz z uśmiechem.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head">
+          <h2>Jak to działa</h2>
+          <p class="section-sub">Trzy kroki od pomysłu do wyjazdu.</p>
+        </div>
+        <ol class="steps">
+          <li class="card step">
+            <span class="step-num">1</span>
+            <h3>Zaznacz punkty na mapie</h3>
+            <p>Start, metę i miejsca po drodze. Możesz też włączyć pętlę, gdy chcesz wrócić do domu tą samą ekipą.</p>
+          </li>
+          <li class="card step">
+            <span class="step-num">2</span>
+            <h3>Dopisz smaki</h3>
+            <p>Nazwa, region, trudność, nawierzchnia. Planer dobierze dystans, czas i policzy paliwo dla Twojego motocykla.</p>
+          </li>
+          <li class="card step">
+            <span class="step-num">3</span>
+            <h3>Zapraszaj i jedźcie</h3>
+            <p>Wrzuć trasę do społeczności, zbierz „biorę udział”, dopnij szczegóły i w drogę.</p>
+          </li>
+        </ol>
+        <div class="center">
+          <a class="btn btn-primary btn-lg" href="#/planer">Odpal planer</a>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head section-head-row">
+          <div>
+            <h2>Świeże trasy społeczności</h2>
+            <p class="section-sub">Ostatnio dodane propozycje — wpadnij, dopisz komentarz, dołącz do wyjazdu.</p>
+          </div>
+          <a class="btn btn-outline" href="#/trasy">Wszystkie trasy</a>
+        </div>
+        <div class="grid grid-3" id="homeRoutes" aria-live="polite"></div>
+      </div>
+
+      <div class="container section">
+        <div class="split">
+          <div class="split-media">
+            <img src="assets/img/community.jpg" alt="Grupa motocyklistów przy motocyklach na leśnym postoju" loading="lazy" decoding="async">
+          </div>
+          <div class="split-text">
+            <h2>To nie portal, to ekipa</h2>
+            <p>
+              Moto Świry Toruń to ludzie, którzy w piątek po pracy potrafią wsiąść na motocykl i wrócić
+              w niedzielę wieczorem. Czasem po szutrach Chełmińskiego Parku Krajobrazowego, czasem nad
+              Wisłę na kawę w Chełmnie, a czasem na drugi koniec Polski po górskie serpentyny.
+            </p>
+            <ul class="check-list">
+              <li>Wspólne wyjazdy weekendowe i krótkie „po pracy”</li>
+              <li>Trasy weryfikowane w praktyce, nie z niebieskiej mapki</li>
+              <li>Pomoc przy pierwszym motocyklu i pierwszym szutrze</li>
+              <li>Zero oceniania za pojemność, markę i tempo</li>
+            </ul>
+            <a class="btn btn-primary" href="#/ranking">Zobacz ranking ekipy</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head">
+          <h2>Spoty, warsztaty i punkty na trasie</h2>
+          <p class="section-sub">Warstwa „Punkty” w planerze pokazuje miejsca, które warto mieć zaznaczone: widoki, stacje 24h, jedzenie, pola namiotowe, warsztaty.</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="card">
+            <h3><span class="ico" data-ico="pin" aria-hidden="true"></span> Kategorie w planerze</h3>
+            <div class="chips" id="poiChips"></div>
+            <p class="muted small">Kliknij kategorię na mapie planera, aby filtrować punkty. Każdy punkt możesz wrzucić jednym kliknięciem do trasy jako punkt pośredni.</p>
+          </div>
+          <div class="card">
+            <div class="media-cover">
+              <img src="assets/img/map-table.jpg" alt="Mapa, rękawice, kompas i telefon na drewnianym stole" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="section-head">
+          <h2>Najczęstsze pytania</h2>
+          <p class="section-sub">Krótko i konkretnie.</p>
+        </div>
+        <div class="faq">
+          <details class="card faq-item">
+            <summary>Kto może dołączyć do Moto Świrów?</summary>
+            <p>Każdy, kto ma motocykl i dobry humor. Nie ma zapisów, składek ani minimalnej pojemności. Zaczynamy od krótkich tras wokół Torunia, a kończymy tam, gdzie akurat poniesie.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Czy muszę się rejestrować, żeby planować trasę?</summary>
+            <p>Nie. Planer, mapa, eksport GPX i katalog motocykli działają bez konta. Konto potrzebne jest tylko do publikowania tras, udziału w wyjazdach i punktów w rankingu.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Jak zdobywa się punkty w rankingu?</summary>
+            <p>Za opublikowanie trasy, dołączenie do wyjazdu i wrzucenie propozycji zmiany trasy. Punkty naliczają się automatycznie, a odznaki za wyjątkowe wyczyny (długość, szuter, liczba wyjazdów) dodają kolorytu.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Czy trasy są bezpieczne?</summary>
+            <p>Trasy są propozycjami społeczności i mogą prowadzić drogami gruntowymi, przez prywatne tereny albo odcinki w remoncie. Zawsze sprawdź aktualny stan drogi, oznakowanie i przepisy. Jedziesz na własne ryzyko, z pełnym wyposażeniem i rozsądkiem.</p>
+          </details>
+          <details class="card faq-item">
+            <summary>Skąd dane o cenach motocykli?</summary>
+            <p>To widełki orientacyjne dla rynku wtórnego w Polsce, opracowane na podstawie ogłoszeń i wycen. Ceny zmieniają się szybciej niż cokolwiek innego w motocyklach — traktuj je jako punkt odniesienia do negocjacji.</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="container section">
+        <div class="cta-banner">
+          <div>
+            <h2>Gotowy na następny wyjazd?</h2>
+            <p>Zaplanuj trasę teraz albo wpadnij na wyjazd organizowany przez ekipę.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-lg" href="#/planer">Planuj trasę</a>
+            <button class="btn btn-outline btn-lg" type="button" data-action="open-auth">Dołącz do ekipy</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ PLANER -->
+    <section class="view" id="view-planer" data-view="planer">
+      <div class="container page-head">
+        <div>
+          <h1>Planer trasy</h1>
+          <p class="section-sub">Klikaj na mapie, przeciągaj punkty, dodawaj przystanki. Trasę policzymy po prawdziwych drogach.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-outline" type="button" id="plannerReset">
+            <span class="ico" data-ico="trash" aria-hidden="true"></span> Wyczyść
+          </button>
+          <button class="btn btn-primary" type="button" id="plannerSave">
+            <span class="ico" data-ico="save" aria-hidden="true"></span> Zapisz trasę
+          </button>
+        </div>
+      </div>
+
+      <div class="container planner">
+        <div class="planner-map">
+          <div id="plannerMap" class="map map-lg" role="application" aria-label="Mapa planera trasy"></div>
+          <div class="map-toolbar" role="toolbar" aria-label="Narzędzia mapy">
+            <div class="seg" id="layerSwitch" role="group" aria-label="Warstwa mapy">
+              <button type="button" class="seg-btn is-active" data-layer="map">Mapa</button>
+              <button type="button" class="seg-btn" data-layer="terrain">Teren</button>
+              <button type="button" class="seg-btn" data-layer="sat">Satelita</button>
+            </div>
+            <button class="btn btn-ghost btn-icon" type="button" id="locateBtn" title="Moja lokalizacja">
+              <span class="ico" data-ico="locate" aria-hidden="true"></span><span class="sr-only">Moja lokalizacja</span>
+            </button>
+            <button class="btn btn-ghost btn-icon" type="button" id="poiToggle" title="Punkty na trasie (spoty, warsztaty)">
+              <span class="ico" data-ico="pin" aria-hidden="true"></span><span class="sr-only">Punkty na trasie</span>
+            </button>
+            <button class="btn btn-ghost btn-icon" type="button" id="fullscreenBtn" title="Pełny ekran">
+              <span class="ico" data-ico="expand" aria-hidden="true"></span><span class="sr-only">Pełny ekran</span>
+            </button>
+          </div>
+          <div class="map-hint" id="mapHint">Kliknij na mapie, aby dodać start.</div>
+        </div>
+
+        <aside class="planner-panel" aria-label="Panel planowania">
+          <section class="card">
+            <h2 class="card-title"><span class="ico" data-ico="route" aria-hidden="true"></span> Przebieg trasy</h2>
+            <ol class="waypoint-list" id="waypointList">
+              <li class="empty muted small">Brak punktów. Kliknij na mapie, aby zacząć.</li>
+            </ol>
+            <div class="row row-wrap gap-sm mt-sm">
+              <button class="btn btn-sm btn-outline" type="button" id="undoPoint" disabled>Wycofaj punkt</button>
+              <button class="btn btn-sm btn-outline" type="button" id="reverseRoute" disabled>Odwróć</button>
+              <button class="btn btn-sm btn-outline" type="button" id="loopRoute" aria-pressed="false">Pętla</button>
+            </div>
+            <div class="field mt-md">
+              <label for="avoidToggle">Preferuj drogi lokalne</label>
+              <label class="switch">
+                <input type="checkbox" id="avoidToggle" checked>
+                <span class="switch-track"><span class="switch-thumb"></span></span>
+                <span class="muted small">Omijaj autostrady i drogi ekspresowe</span>
+              </label>
+            </div>
+          </section>
+
+          <section class="card" id="summaryCard">
+            <h2 class="card-title"><span class="ico" data-ico="gauge" aria-hidden="true"></span> Podsumowanie</h2>
+            <div class="metrics" id="routeMetrics">
+              <div class="metric"><span class="metric-label">Dystans</span><span class="metric-value" id="mDistance">—</span></div>
+              <div class="metric"><span class="metric-label">Czas jazdy</span><span class="metric-value" id="mTime">—</span></div>
+              <div class="metric"><span class="metric-label">Średnia</span><span class="metric-value" id="mAvg">—</span></div>
+              <div class="metric"><span class="metric-label">Paliwo</span><span class="metric-value" id="mFuel">—</span></div>
+            </div>
+            <p class="muted small" id="fuelNote">Ustaw swój motocykl w garażu, aby policzyć koszt paliwa i zasięg.</p>
+            <div class="progress" id="routeProgress" hidden><span></span></div>
+            <p class="error-text" id="plannerError" hidden></p>
+          </section>
+
+          <section class="card" id="weatherCard">
+            <h2 class="card-title"><span class="ico" data-ico="cloud" aria-hidden="true"></span> Pogoda na starcie</h2>
+            <div id="weatherBox" class="muted small">Dodaj punkt startowy, aby zobaczyć prognozę na 4 dni.</div>
+          </section>
+
+          <section class="card">
+            <h2 class="card-title"><span class="ico" data-ico="share" aria-hidden="true"></span> Wyślij dalej</h2>
+            <div class="stack gap-sm">
+              <button class="btn btn-outline btn-block" type="button" id="exportGpx" disabled>
+                <span class="ico" data-ico="download" aria-hidden="true"></span> Pobierz GPX
+              </button>
+              <button class="btn btn-outline btn-block" type="button" id="openGoogle" disabled>
+                <span class="ico" data-ico="external" aria-hidden="true"></span> Otwórz w Google Maps
+              </button>
+              <button class="btn btn-outline btn-block" type="button" id="copyRouteLink" disabled>
+                <span class="ico" data-ico="link" aria-hidden="true"></span> Kopiuj link do trasy
+              </button>
+            </div>
+            <p class="muted small mt-sm">GPX wgrasz do Garmina, OsmAnd, Locus, Calimoto i większości aplikacji nawigacyjnych.</p>
+          </section>
+
+          <section class="card">
+            <h2 class="card-title"><span class="ico" data-ico="pin" aria-hidden="true"></span> Szybkie przeskoki</h2>
+            <div class="chips" id="regionChips"></div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================================================ TRASY -->
+    <section class="view" id="view-trasy" data-view="trasy">
+      <div class="container page-head">
+        <div>
+          <h1>Trasy społeczności</h1>
+          <p class="section-sub">Propozycje Moto Świrów — od krótkich pętli po Toruniem po wyprawy na drugi koniec Polski.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-outline" type="button" data-action="focus-planner">Zaplanuj własną</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="toolbar card">
+          <div class="field field-grow">
+            <label for="routeSearch" class="sr-only">Szukaj trasy</label>
+            <span class="input-wrap">
+              <span class="ico" data-ico="search" aria-hidden="true"></span>
+              <input type="search" id="routeSearch" placeholder="Szukaj po nazwie, regionie, autorze…">
+            </span>
+          </div>
+          <div class="field">
+            <label for="routeRegion" class="sr-only">Region</label>
+            <select id="routeRegion"><option value="">Wszystkie regiony</option></select>
+          </div>
+          <div class="field">
+            <label for="routeDifficulty" class="sr-only">Trudność</label>
+            <select id="routeDifficulty">
+              <option value="">Każda trudność</option>
+              <option value="latwa">Łatwa — asfalt, spokojne tempo</option>
+              <option value="srednia">Średnia — mieszana nawierzchnia</option>
+              <option value="trudna">Trudna — szuter, techniczne odcinki</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="routeSurface" class="sr-only">Nawierzchnia</label>
+            <select id="routeSurface">
+              <option value="">Każda nawierzchnia</option>
+              <option value="asfalt">Asfalt</option>
+              <option value="mieszana">Mieszana</option>
+              <option value="szuter">Szuter i grunt</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="routeSort" class="sr-only">Sortowanie</label>
+            <select id="routeSort">
+              <option value="new">Najnowsze</option>
+              <option value="long">Najdłuższe</option>
+              <option value="likes">Najbardziej lubiane</option>
+              <option value="crew">Największa ekipa</option>
+              <option value="short">Najkrótsze</option>
+            </select>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="routeClearFilters">Wyczyść</button>
+        </div>
+
+        <div class="list-meta">
+          <span id="routesCount" class="muted small">Ładowanie tras…</span>
+          <span class="mode-tag" id="routesModeTag"></span>
+        </div>
+
+        <div class="grid grid-3" id="routesGrid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ TRASA (szczegóły) -->
+    <section class="view" id="view-trasa" data-view="trasa">
+      <div class="container" id="routeDetail">
+        <p class="muted">Wczytywanie trasy…</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ RANKING -->
+    <section class="view" id="view-ranking" data-view="ranking">
+      <div class="container page-head">
+        <div>
+          <h1>Ranking Moto Świrów</h1>
+          <p class="section-sub">Punkty za trasy, wspólne wyjazdy i propozycje zmian. Aktualizuje się na żywo.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-outline" type="button" data-action="points-info">Jak zdobywać punkty?</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="podium" id="podium" aria-live="polite"></div>
+        <div class="ranking-meta">
+          <div class="metric-card"><span class="metric-label">Twoja pozycja</span><span class="metric-value" id="myRank">—</span></div>
+          <div class="metric-card"><span class="metric-label">Twoje punkty</span><span class="metric-value" id="myScore">—</span></div>
+          <div class="metric-card"><span class="metric-label">Do awansu</span><span class="metric-value" id="myGap">—</span></div>
+          <div class="metric-card"><span class="metric-label">Motocykliści w tabeli</span><span class="metric-value" id="rankCount">—</span></div>
+        </div>
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table" id="rankingTable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Motocyklista</th>
+                  <th scope="col">Motocykl</th>
+                  <th scope="col">Trasy</th>
+                  <th scope="col">Wyjazdy</th>
+                  <th scope="col">Punkty</th>
+                  <th scope="col">Odznaki</th>
+                </tr>
+              </thead>
+              <tbody id="rankingBody">
+                <tr><td colspan="7" class="muted">Ładowanie…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="grid grid-2 mt-lg">
+          <div class="card">
+            <h2 class="card-title"><span class="ico" data-ico="calendar" aria-hidden="true"></span> Miesiąc w liczbach</h2>
+            <div id="monthStats" class="metrics metrics-2"></div>
+          </div>
+          <div class="card">
+            <h2 class="card-title"><span class="ico" data-ico="trophy" aria-hidden="true"></span> Odznaki</h2>
+            <ul class="badge-list" id="badgeLegend"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ GARAŻ -->
+    <section class="view" id="view-garaz" data-view="garaz">
+      <div class="container page-head">
+        <div>
+          <h1>Garaż: marki, modele, ceny</h1>
+          <p class="section-sub">Orientacyjne widełki cenowe z polskiego rynku wtórnego plus moc, masa, spalanie i kategoria prawa jazdy.</p>
+        </div>
+        <div class="page-head-actions">
+          <button class="btn btn-outline" type="button" id="myBikeBtn">
+            <span class="ico" data-ico="bike" aria-hidden="true"></span> Mój motocykl
+          </button>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="toolbar card">
+          <div class="field field-grow">
+            <label for="bikeSearch" class="sr-only">Szukaj motocykla</label>
+            <span class="input-wrap">
+              <span class="ico" data-ico="search" aria-hidden="true"></span>
+              <input type="search" id="bikeSearch" placeholder="Szukaj modelu, marki, np. Ténéré, Africa Twin…">
+            </span>
+          </div>
+          <div class="field">
+            <label for="bikeCategory" class="sr-only">Kategoria</label>
+            <select id="bikeCategory"><option value="">Każda kategoria</option></select>
+          </div>
+          <div class="field">
+            <label for="bikeLicense" class="sr-only">Prawo jazdy</label>
+            <select id="bikeLicense">
+              <option value="">Każde uprawnienie</option>
+              <option value="A1">A1 (125 cm³)</option>
+              <option value="A2">A2 (do 35 kW)</option>
+              <option value="A">A (bez ograniczeń)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="bikeSort" class="sr-only">Sortowanie</label>
+            <select id="bikeSort">
+              <option value="popular">Popularność</option>
+              <option value="priceAsc">Cena: od najniższej</option>
+              <option value="priceDesc">Cena: od najwyższej</option>
+              <option value="ccDesc">Pojemność: od największej</option>
+              <option value="powerDesc">Moc: od największej</option>
+              <option value="weightAsc">Masa: od najlżejszej</option>
+            </select>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="bikeClearFilters">Wyczyść</button>
+        </div>
+
+        <div class="card mb-md" id="myBikePanel"></div>
+
+        <div class="list-meta">
+          <span id="bikesCount" class="muted small">Ładowanie katalogu…</span>
+          <span class="muted small">Ceny orientacyjne (PLN, rynek wtórny)</span>
+        </div>
+
+        <div class="grid grid-3" id="bikeGrid" aria-live="polite"></div>
+
+        <div class="compare-bar is-hidden" id="compareBar" role="region" aria-label="Porównywarka">
+          <span class="muted small">Porównaj modele:</span>
+          <div class="chips" id="compareChips"></div>
+          <div class="row gap-sm">
+            <button class="btn btn-sm btn-primary" type="button" id="compareOpen">Porównaj</button>
+            <button class="btn btn-sm btn-ghost" type="button" id="compareClear">Wyczyść</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ PORADNIK -->
+    <section class="view" id="view-poradnik" data-view="poradnik">
+      <div class="container page-head">
+        <div>
+          <h1>Poradnik i zasady ekipy</h1>
+          <p class="section-sub">Konkrety, które ratują wyjazd — od checklisty sprzętu po zasady jazdy w grupie.</p>
+        </div>
+      </div>
+
+      <div class="container grid grid-2">
+        <article class="card prose">
+          <h2>Zasady jazdy w grupie</h2>
+          <ol>
+            <li><strong>Kto prowadzi, ten prowadzi.</strong> Nie wyprzedzamy „bo zaraz skręt”. Kolumna jedzie swoim tempem, prowadzący ustala prędkość.</li>
+            <li><strong>Zasada ostatniego.</strong> Zamykający nie zostawia nikogo z tyłu. Jeśli ktoś zniknął z lusterka — zwalniamy i czekamy na skrzyżowaniu.</li>
+            <li><strong>Ustal punkty zbiórki na trasie</strong> — przy każdym trudnym zjeździe lub skręcie w szuter. Wystarczy tankowanie co 120–150 km.</li>
+            <li><strong>Nie wyprzedzaj na trzeciego.</strong> Dynamiczna jazda w kolumnie to najprostszy sposób, żeby skończyć sezon w szpitalu.</li>
+            <li><strong>Nowi na końcu, ale pod opieką.</strong> Świeżak jedzie przed zamykającym, nigdy sam.</li>
+          </ol>
+        </article>
+
+        <article class="card prose">
+          <h2>Checklista sprzętu przed wyjazdem</h2>
+          <ul class="check-list">
+            <li>Kask z atestem, kominiarka, rękawice i buty z usztywnieniem kostki</li>
+            <li>Kurtka i spodnie z protektorami — nawet w upał, choćby tekstylne z odpinanymi membranami</li>
+            <li>Zestaw naprawczy: łatki, pompka/kompresor, klucz do świec, taśma, opaski, trytytki</li>
+            <li>Powerbank, kabel do telefonu, uchwyt na kierownicy, mapa offline</li>
+            <li>Apteczka, woda, batony, kurtka przeciwdeszczowa, folia NRC</li>
+            <li>Dokumenty: prawo jazdy, dowód rejestracyjny, OC, potwierdzenie przeglądu</li>
+          </ul>
+        </article>
+
+        <article class="card prose">
+          <h2>Przygotowanie motocykla</h2>
+          <ul class="check-list">
+            <li>Ciśnienie w oponach — sprawdzane „na zimno”, z bagażem podnieś o 0,2 bara</li>
+            <li>Stan i naciąg łańcucha, poziom oleju, płyn hamulcowy, światła i kierunkowskazy</li>
+            <li>Grubość klocków hamulcowych i stan tarcz — szczególnie przed trasą w górach</li>
+            <li>Bagaż spięty tak, żeby nie zmieniał środka ciężkości ani nie latał przy hamowaniu</li>
+            <li>Nawigacja naładowana i przetestowana na krótkim objazdem jeszcze przed wyjazdem</li>
+          </ul>
+        </article>
+
+        <article class="card prose">
+          <h2>Pierwsze szutry — jak nie wystraszyć się kurzu</h2>
+          <ol>
+            <li>Zacznij od leśnych dróg żwirowych z twardym podłożem, przy suchej pogodzie.</li>
+            <li>Zwalniaj przed zakrętem, dodawaj gazu w zakręcie — motocykl stabilizuje się przy lekkim przyspieszaniu.</li>
+            <li>Wstań na podnóżkach, kolana przy zbiorniku, łokcie luźno. Im mniej sztywno, tym mniej niespodzianek.</li>
+            <li>Nigdy nie hamuj gwałtownie przednim hamulcem na luźnej nawierzchni. Głównie tył, delikatnie przód.</li>
+            <li>Jedź z kimś doświadczonym. Trasy oznaczone jako <em>szuter</em> w katalogu mają opis warunków — nie bagatelizuj ich.</li>
+          </ol>
+        </article>
+
+        <article class="card prose">
+          <h2>Region na weekend: Toruń i okolice w 5 pomysłach</h2>
+          <ul class="check-list">
+            <li>Pętla wiślana: Toruń → Chełmno → Świecie (asfalt i widoki na Wisłę)</li>
+            <li>Bory Tucholskie: Zalew Koronowski, Tleń, Świt — szuter i piach</li>
+            <li>Dolina Drwęcy: Golub-Dobrzyń → Brodnica, zamek i urokliwe wsie</li>
+            <li>Pojezierze Brodnickie: jeziora, wąskie asfalty, mały ruch</li>
+            <li>Chełmiński Park Krajobrazowy: krótka pętla po pracy, 60–80 km</li>
+          </ul>
+        </article>
+
+        <article class="card prose">
+          <h2>Koszty wyjazdu — policz przed, nie po</h2>
+          <p>
+            Planer liczy paliwo na podstawie spalania Twojego motocykla ustawionego w garażu.
+            Do tego dolicz kawę, obiad i nocleg, jeśli trasa jest kilkudniowa.
+            Prosty wzór: <strong>kilometry × spalanie / 100 × cena paliwa</strong>.
+            Przy 300 km, 5 l/100 km i paliwie 6,50 zł wychodzi ok. 97 zł na motocykl.
+          </p>
+          <p class="muted small">Ceny paliw zmieniają się co tydzień — podaj aktualną cenę w garażu, a planer przeliczy koszt automatycznie.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================ PROFIL -->
+    <section class="view" id="view-profil" data-view="profil">
+      <div class="container page-head">
+        <div>
+          <h1>Mój profil</h1>
+          <p class="section-sub">Twoje dane, motocykl, punkty i trasy.</p>
+        </div>
+      </div>
+      <div class="container" id="profilePanel"></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand brand-footer" href="#/">
+          <img class="brand-mark" src="assets/img/emblem.png" alt="" width="40" height="40" loading="lazy">
+          <span class="brand-text"><strong>Moto&nbsp;Świry</strong><span>Toruń</span></span>
+        </a>
+        <p class="muted small mt-sm">
+          Społeczność motocyklistów z Torunia i okolic. Trasy, wspólne wyjazdy i wiedza,
+          której nie znajdziesz w salonie.
+        </p>
+      </div>
+      <nav aria-label="Stopka — serwis">
+        <h2 class="footer-title">Serwis</h2>
+        <ul class="footer-links">
+          <li><a href="#/planer">Planer trasy</a></li>
+          <li><a href="#/trasy">Trasy społeczności</a></li>
+          <li><a href="#/ranking">Ranking</a></li>
+          <li><a href="#/garaz">Katalog motocykli</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Stopka — wiedza">
+        <h2 class="footer-title">Wiedza</h2>
+        <ul class="footer-links">
+          <li><a href="#/poradnik">Zasady jazdy w grupie</a></li>
+          <li><a href="#/poradnik">Checklista sprzętu</a></li>
+          <li><a href="#/poradnik">Pierwsze szutry</a></li>
+          <li><a href="#/poradnik">Koszty wyjazdu</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="footer-title">Bezpieczeństwo</h2>
+        <p class="muted small">
+          Trasy w serwisie są propozycjami użytkowników. Przed wyjazdem sprawdź stan drogi,
+          przepisy i pogodę. Jedź w pełnym wyposażeniu i na własną odpowiedzialność.
+        </p>
+        <p class="muted small mt-sm">
+          Dane logowania i trasy zapisujemy w Firebase (projekt <code>motoswiry-torun</code>).
+          Możesz w każdej chwili usunąć konto pisząc na nasz adres w stopce.
+        </p>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span id="year">2026</span> Moto Świry Toruń</span>
+      <span class="row gap-sm">
+        <span id="swStatus" class="muted small"></span>
+        <a href="#/" class="muted small">Do góry ↑</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- ============================================================ MODALE -->
+
+  <!-- Logowanie / rejestracja / reset -->
+  <div class="modal-overlay" id="authModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="authTitle" class="modal-title">Witaj w ekipie</h2>
+
+      <div class="tabs" role="tablist" aria-label="Tryb konta">
+        <button class="tab is-active" type="button" role="tab" aria-selected="true" data-auth-tab="login">Logowanie</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-auth-tab="register">Rejestracja</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-auth-tab="reset">Reset hasła</button>
+      </div>
+
+      <form id="authForm" novalidate>
+        <div class="field">
+          <label for="authEmail">Email</label>
+          <input type="email" id="authEmail" name="email" autocomplete="email" required placeholder="np. swir@motoswiry.pl">
+          <p class="field-error" data-error-for="authEmail"></p>
+        </div>
+
+        <div class="field" data-pane="login register">
+          <label for="authPassword">Hasło</label>
+          <span class="input-wrap">
+            <input type="password" id="authPassword" name="password" autocomplete="current-password" placeholder="Minimum 6 znaków">
+            <button class="btn btn-ghost btn-icon input-suffix" type="button" data-toggle-password="authPassword" aria-label="Pokaż hasło">
+              <span class="ico" data-ico="eye" aria-hidden="true"></span>
+            </button>
+          </span>
+          <p class="field-error" data-error-for="authPassword"></p>
+        </div>
+
+        <div class="field" data-pane="register">
+          <label for="authName">Imię i nazwisko / ksywka</label>
+          <input type="text" id="authName" name="name" autocomplete="name" placeholder="Np. Bartek „Świr”">
+          <p class="field-error" data-error-for="authName"></p>
+        </div>
+
+        <div class="field" data-pane="register">
+          <label for="authBike">Motocykl</label>
+          <input type="text" id="authBike" name="bike" list="bikeOptions" placeholder="Np. Honda Africa Twin CRF1000L">
+          <p class="field-hint">Wpisz model albo wybierz z podpowiedzi — trafi do garażu i rankingu.</p>
+        </div>
+
+        <div class="field" data-pane="register">
+          <label class="switch">
+            <input type="checkbox" id="authTerms" checked>
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+            <span class="small">Akceptuję zasady ekipy i wiem, że jazda w grupie wymaga rozwagi.</span>
+          </label>
+          <p class="field-error" data-error-for="authTerms"></p>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-primary btn-block" type="submit" id="authSubmit">Zaloguj się</button>
+        </div>
+        <p class="message" id="authMessage" role="status"></p>
+        <p class="muted small" id="authModeHint"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Zapisywanie trasy (metadane) -->
+  <div class="modal-overlay" id="routeModal" hidden>
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="routeModalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="routeModalTitle" class="modal-title">Zapisz trasę dla ekipy</h2>
+      <form id="routeForm" novalidate>
+        <div class="grid grid-2 gap-md">
+          <div class="field">
+            <label for="routeTitle">Nazwa trasy</label>
+            <input type="text" id="routeTitle" maxlength="80" placeholder="Np. Szutrowa pętla nad Wisłą" required>
+            <p class="field-error" data-error-for="routeTitle"></p>
+          </div>
+          <div class="field">
+            <label for="routeRegionField">Region</label>
+            <select id="routeRegionField"></select>
+          </div>
+          <div class="field">
+            <label for="routeDifficultyField">Trudność</label>
+            <select id="routeDifficultyField">
+              <option value="latwa">Łatwa — asfalt, spokojne tempo</option>
+              <option value="srednia" selected>Średnia — mieszana nawierzchnia</option>
+              <option value="trudna">Trudna — szuter, techniczne odcinki</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="routeSurfaceField">Nawierzchnia</label>
+            <select id="routeSurfaceField">
+              <option value="asfalt">Asfalt</option>
+              <option value="mieszana" selected>Mieszana</option>
+              <option value="szuter">Szuter i grunt</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="routeRideDate">Planowana data wyjazdu (opcjonalnie)</label>
+            <input type="date" id="routeRideDate">
+          </div>
+          <div class="field">
+            <label for="routeMeeting">Miejsce zbiórki (opcjonalnie)</label>
+            <input type="text" id="routeMeeting" maxlength="90" placeholder="Np. stacja Orlen, Szosa Chełmińska">
+          </div>
+        </div>
+        <div class="field">
+          <label for="routeDescription">Opis — co warto wiedzieć</label>
+          <textarea id="routeDescription" rows="4" maxlength="900" placeholder="Np. Start pod zamkiem, 30 km asfaltu, potem 20 km szutru w dobrym stanie. Tankowanie w Chełmnie, obiad przy rynku. Uwaga: ostatnie 3 km po deszczu bywają grząskie."></textarea>
+        </div>
+        <div class="route-preview" id="routePreviewMini">
+          <span class="muted small">Podgląd trasy pojawi się tutaj.</span>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="submit" id="routeSubmit">Opublikuj trasę</button>
+          <button class="btn btn-ghost" type="button" data-close-modal>Anuluj</button>
+        </div>
+        <p class="message" id="routeMessage" role="status"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Potwierdzenie -->
+  <div class="modal-overlay" id="confirmModal" hidden>
+    <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h2 id="confirmTitle" class="modal-title">Potwierdź</h2>
+      <p id="confirmText"></p>
+      <div class="modal-actions">
+        <button class="btn btn-danger" type="button" id="confirmOk">Tak, zrób to</button>
+        <button class="btn btn-ghost" type="button" id="confirmCancel">Anuluj</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Udostępnianie -->
+  <div class="modal-overlay" id="shareModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="shareTitle" class="modal-title">Udostępnij trasę</h2>
+      <div class="field">
+        <label for="shareLink">Link do trasy</label>
+        <span class="input-wrap">
+          <input type="text" id="shareLink" readonly>
+          <button class="btn btn-ghost btn-icon input-suffix" type="button" id="shareCopy" aria-label="Kopiuj link">
+            <span class="ico" data-ico="copy" aria-hidden="true"></span>
+          </button>
+        </span>
+      </div>
+      <div class="stack gap-sm">
+        <button class="btn btn-outline btn-block" type="button" id="shareGpx">
+          <span class="ico" data-ico="download" aria-hidden="true"></span> Pobierz plik GPX
+        </button>
+        <a class="btn btn-outline btn-block" id="shareWhatsapp" target="_blank" rel="noopener">
+          <span class="ico" data-ico="chat" aria-hidden="true"></span> Wyślij na WhatsApp
+        </a>
+        <button class="btn btn-outline btn-block" type="button" id="shareNative">
+          <span class="ico" data-ico="share" aria-hidden="true"></span> Inne aplikacje…
+        </button>
+      </div>
+      <p class="muted small mt-sm">Link zawiera pozycję startu i mety — każdy może otworzyć trasę w planerze.</p>
+    </div>
+  </div>
+
+  <!-- Porównywarka motocykli -->
+  <div class="modal-overlay" id="compareModal" hidden>
+    <div class="modal modal-wide" role="dialog" aria-modal="true" aria-labelledby="compareTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="compareTitle" class="modal-title">Porównanie motocykli</h2>
+      <div class="table-wrap" id="compareTable"></div>
+    </div>
+  </div>
+
+  <!-- Propozycja zmiany trasy -->
+  <div class="modal-overlay" id="suggestionModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="suggestionTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="suggestionTitle" class="modal-title">Propozycja zmiany</h2>
+      <p class="muted small">Trasa: <strong id="suggestionTarget"></strong></p>
+      <form id="suggestionForm" novalidate>
+        <div class="field">
+          <label for="suggestionText">Co proponujesz zmienić?</label>
+          <textarea id="suggestionText" rows="4" maxlength="400" placeholder="Np. Proponuję objazd przez Ostromecko — lepszy asfalt i punkt widokowy." required></textarea>
+          <p class="field-hint">Konkretne propozycje trafiają do autora trasy i innych uczestników.</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="submit" id="suggestionSubmit">Wyślij propozycję</button>
+          <button class="btn btn-ghost" type="button" data-close-modal>Anuluj</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mój motocykl -->
+  <div class="modal-overlay" id="bikeModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bikeModalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="bikeModalTitle" class="modal-title">Mój motocykl</h2>
+      <form id="bikeForm" novalidate>
+        <div class="grid grid-2 gap-md">
+          <div class="field">
+            <label for="bikeBrand">Marka</label>
+            <input type="text" id="bikeBrand" placeholder="Np. Honda">
+          </div>
+          <div class="field">
+            <label for="bikeModel">Model</label>
+            <input type="text" id="bikeModel" list="bikeOptions" placeholder="Np. Africa Twin CRF1000L">
+          </div>
+          <div class="field">
+            <label for="bikeCc">Pojemność (cm³)</label>
+            <input type="number" id="bikeCc" min="0" max="2500" step="1" placeholder="998">
+          </div>
+          <div class="field">
+            <label for="bikeConsumption">Spalanie (l/100 km)</label>
+            <input type="number" id="bikeConsumption" min="0" max="20" step="0.1" value="5.2">
+          </div>
+          <div class="field">
+            <label for="bikeTank">Bak (l)</label>
+            <input type="number" id="bikeTank" min="1" max="40" step="0.5" value="17">
+          </div>
+          <div class="field">
+            <label for="bikeFuelPrice">Cena paliwa (zł/l)</label>
+            <input type="number" id="bikeFuelPrice" min="1" max="20" step="0.01" value="6.49">
+          </div>
+        </div>
+        <p class="field-hint">Te dane wykorzystujemy w planerze do liczenia kosztu paliwa i zasięgu. Nie wysyłamy ich nigdzie dalej.</p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="submit" id="bikeSubmit">Zapisz mój motocykl</button>
+          <button class="btn btn-ghost" type="button" data-close-modal>Anuluj</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edycja profilu -->
+  <div class="modal-overlay" id="profileModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Zamknij">
+        <span class="ico" data-ico="close" aria-hidden="true"></span>
+      </button>
+      <h2 id="profileModalTitle" class="modal-title">Edytuj dane</h2>
+      <form id="profileForm" novalidate>
+        <div class="field">
+          <label for="profileName">Imię i nazwisko / ksywka</label>
+          <input type="text" id="profileName" maxlength="40" required>
+        </div>
+        <div class="field">
+          <label for="profileBike">Motocykl</label>
+          <input type="text" id="profileBike" list="bikeOptions" maxlength="60" placeholder="Np. Yamaha Ténéré 700">
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" type="submit" id="profileSubmit">Zapisz zmiany</button>
+          <button class="btn btn-ghost" type="button" data-close-modal>Anuluj</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+  <datalist id="bikeOptions"></datalist>
+
+  <!-- Skrypty -->
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="vendor/firebase/firebase-app-compat.js"></script>
+  <script src="vendor/firebase/firebase-auth-compat.js"></script>
+  <script src="vendor/firebase/firebase-firestore-compat.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/ranking.js"></script>
+  <script src="js/garage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

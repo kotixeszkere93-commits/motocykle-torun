@@ -1,10 +1,400 @@
 {
-  "Yamaha": {
-    "2018": [
-      { "model": "MT-07", "price": { "min": 25000, "avg": 28000, "max": 32000 } }
-    ],
-    "2020": [
-      { "model": "MT-07", "price": { "min": 29000, "avg": 32000, "max": 36000 } }
-    ]
-  }
+  "meta": {
+    "updated": "2026-09",
+    "currency": "PLN",
+    "note": "Ceny orientacyjne dla polskiego rynku wtórnego (stan dobry, przebieg typowy). Moc podana w KM, masa w kg (na sucho), spalanie w l/100 km w cyklu mieszanym.",
+    "updatedBy": "Moto Świry Toruń"
+  },
+  "bikes": [
+    {
+      "brand": "Honda", "model": "Africa Twin CRF1000L", "category": "adventure", "license": "A",
+      "cc": 998, "power": 95, "weight": 232, "consumption": 5.4, "tank": 18.8,
+      "years": "2016–2019", "price": { "min": 42000, "max": 62000 },
+      "desc": "Kultowa wyprawówka. Silnik z wałem korbowym 270°, opony 21/18, wersje DCT i z manualem."
+    },
+    {
+      "brand": "Honda", "model": "Africa Twin CRF1100L", "category": "adventure", "license": "A",
+      "cc": 1084, "power": 102, "weight": 226, "consumption": 5.6, "tank": 18.8,
+      "years": "2020–2025", "price": { "min": 58000, "max": 85000 },
+      "desc": "Nowocześniejsza generacja: pełny kolorowy TFT, elektroniczne zawieszenie (ES) i więcej mocy."
+    },
+    {
+      "brand": "Honda", "model": "NC750X", "category": "turystyczny", "license": "A",
+      "cc": 745, "power": 58, "weight": 220, "consumption": 3.7, "tank": 14.1,
+      "years": "2014–2024", "price": { "min": 16000, "max": 34000 },
+      "desc": "Najniższe spalanie w klasie, schowek na kask w miejscu baku. Idealny commuter i turystyk."
+    },
+    {
+      "brand": "Honda", "model": "CB500X", "category": "adventure", "license": "A2",
+      "cc": 471, "power": 47, "weight": 197, "consumption": 4.0, "tank": 17.5,
+      "years": "2019–2024", "price": { "min": 23000, "max": 36000 },
+      "desc": "Lekka, tania w utrzymaniu, świetna na pierwszy motocykl i dłuższe trasy."
+    },
+    {
+      "brand": "Honda", "model": "CB125R", "category": "125", "license": "A1",
+      "cc": 124, "power": 15, "weight": 130, "consumption": 2.4, "tank": 10.1,
+      "years": "2018–2024", "price": { "min": 9000, "max": 16000 },
+      "desc": "Wygląda jak duża, jeździ jak 125. Świetna na start po zdaniu A1."
+    },
+    {
+      "brand": "Honda", "model": "CBF1000F", "category": "turystyczny", "license": "A",
+      "cc": 998, "power": 107, "weight": 245, "consumption": 6.2, "tank": 19,
+      "years": "2006–2014", "price": { "min": 12000, "max": 20000 },
+      "desc": "Budżetowy turystyk na dużych kołach. Dużo motocykla za niewielkie pieniądze."
+    },
+    {
+      "brand": "Yamaha", "model": "Ténéré 700", "category": "adventure", "license": "A",
+      "cc": 689, "power": 73, "weight": 204, "consumption": 4.6, "tank": 16,
+      "years": "2019–2025", "price": { "min": 38000, "max": 52000 },
+      "desc": "Uwielbiana za lekkość i prostotę. Świetna w terenie, szutry jej nie straszne."
+    },
+    {
+      "brand": "Yamaha", "model": "MT-07", "category": "naked", "license": "A2",
+      "cc": 689, "power": 73, "weight": 184, "consumption": 4.3, "tank": 13,
+      "years": "2014–2025", "price": { "min": 24000, "max": 40000 },
+      "desc": "Wzór fun-to-ride w klasie średniej. Lekki, zwinny, dynamiczny silnik CP2."
+    },
+    {
+      "brand": "Yamaha", "model": "Tracer 700 / 7", "category": "turystyczny", "license": "A",
+      "cc": 689, "power": 73, "weight": 196, "consumption": 4.5, "tank": 17,
+      "years": "2016–2024", "price": { "min": 27000, "max": 44000 },
+      "desc": "Sportowy turystyk na bazie MT-07. Owiewka, zestaw kufrów i można jechać w Bieszczady."
+    },
+    {
+      "brand": "Yamaha", "model": "XSR700", "category": "klasyk", "license": "A2",
+      "cc": 689, "power": 73, "weight": 186, "consumption": 4.4, "tank": 13,
+      "years": "2016–2024", "price": { "min": 25000, "max": 38000 },
+      "desc": "Retro look z nowoczesnym wnętrzem CP2. Ładna, zwinna, wszechstronna."
+    },
+    {
+      "brand": "Yamaha", "model": "FJR1300", "category": "turystyczny", "license": "A",
+      "cc": 1298, "power": 146, "weight": 289, "consumption": 6.4, "tank": 25,
+      "years": "2006–2019", "price": { "min": 20000, "max": 42000 },
+      "desc": "Zbudowany do połykania kilometrów, z wałem i regulowanym elektrycznie dachem."
+    },
+    {
+      "brand": "Yamaha", "model": "WR250R", "category": "enduro", "license": "A2",
+      "cc": 250, "power": 30, "weight": 134, "consumption": 3.4, "tank": 7.6,
+      "years": "2008–2017", "price": { "min": 14000, "max": 24000 },
+      "desc": "Lekkie dual sport na szutry. Serwisowane regularnie wybacza każdy błąd w piachu."
+    },
+    {
+      "brand": "Suzuki", "model": "V-Strom 650", "category": "adventure", "license": "A",
+      "cc": 645, "power": 70, "weight": 213, "consumption": 4.4, "tank": 20,
+      "years": "2004–2023", "price": { "min": 14000, "max": 34000 },
+      "desc": "Legenda niezawodności i taniej eksploatacji. Idealny na dłuższe wyprawy z sakwami."
+    },
+    {
+      "brand": "Suzuki", "model": "V-Strom 1050 / 1000", "category": "adventure", "license": "A",
+      "cc": 1037, "power": 107, "weight": 236, "consumption": 5.5, "tank": 20,
+      "years": "2014–2025", "price": { "min": 30000, "max": 60000 },
+      "desc": "Duży turystyk-adventure z V-twinem i kapitalnym komfortem na autostradzie."
+    },
+    {
+      "brand": "Suzuki", "model": "SV650", "category": "naked", "license": "A2",
+      "cc": 645, "power": 76, "weight": 191, "consumption": 4.6, "tank": 14.5,
+      "years": "2003–2023", "price": { "min": 11000, "max": 28000 },
+      "desc": "Klasyczna szkoła jazdy: V-twin, tania eksploatacja, ogrom części używanych."
+    },
+    {
+      "brand": "Suzuki", "model": "GSX-8S", "category": "naked", "license": "A2",
+      "cc": 776, "power": 83, "weight": 202, "consumption": 4.7, "tank": 14,
+      "years": "2023–2025", "price": { "min": 35000, "max": 45000 },
+      "desc": "Nowy twin 270°, pełna elektronika i świetne prowadzenie w mieście i w trasie."
+    },
+    {
+      "brand": "Kawasaki", "model": "Versys 650", "category": "turystyczny", "license": "A",
+      "cc": 649, "power": 66, "weight": 216, "consumption": 4.7, "tank": 21,
+      "years": "2010–2024", "price": { "min": 16000, "max": 36000 },
+      "desc": "Komfort i wszechstronność. Duży bak, dobry fotel, lubi nierówne drogi."
+    },
+    {
+      "brand": "Kawasaki", "model": "Z650", "category": "naked", "license": "A2",
+      "cc": 649, "power": 68, "weight": 187, "consumption": 4.6, "tank": 15,
+      "years": "2017–2024", "price": { "min": 21000, "max": 33000 },
+      "desc": "Lekki i zwinny naked z równomierną charakterystyką — dobry na drugi motocykl."
+    },
+    {
+      "brand": "Kawasaki", "model": "Z900", "category": "naked", "license": "A",
+      "cc": 948, "power": 125, "weight": 212, "consumption": 5.6, "tank": 17,
+      "years": "2017–2025", "price": { "min": 32000, "max": 50000 },
+      "desc": "Cztery cylindry, mnóstwo frajdy i cena, która nie boli tak jak europejska konkurencja."
+    },
+    {
+      "brand": "Kawasaki", "model": "Ninja 400", "category": "sportowy", "license": "A2",
+      "cc": 399, "power": 45, "weight": 168, "consumption": 3.8, "tank": 14,
+      "years": "2018–2023", "price": { "min": 17000, "max": 28000 },
+      "desc": "Idealny na tor i na naukę jazdy sportowej. Bardzo lekki, wybacza błędy."
+    },
+    {
+      "brand": "Kawasaki", "model": "KLR 650", "category": "dual", "license": "A",
+      "cc": 652, "power": 40, "weight": 207, "consumption": 5.0, "tank": 23,
+      "years": "1987–2025", "price": { "min": 12000, "max": 26000 },
+      "desc": "Nie do zniszczenia. Duży bak, prosty silnik, świetny na dalekie szutry."
+    },
+    {
+      "brand": "BMW", "model": "R 1250 GS Adventure", "category": "adventure", "license": "A",
+      "cc": 1254, "power": 136, "weight": 268, "consumption": 5.4, "tank": 30,
+      "years": "2019–2025", "price": { "min": 65000, "max": 105000 },
+      "desc": "Wzorzec wyprawówki: bokserski silnik z ShiftCam, ogromny zasięg, komplet elektroniki."
+    },
+    {
+      "brand": "BMW", "model": "R 1200 GS LC", "category": "adventure", "license": "A",
+      "cc": 1170, "power": 125, "weight": 238, "consumption": 5.3, "tank": 20,
+      "years": "2013–2018", "price": { "min": 38000, "max": 62000 },
+      "desc": "Najpopularniejszy adventure w Polsce. Komfort, zasięg i moc na dłuższe wypady."
+    },
+    {
+      "brand": "BMW", "model": "F 850 GS / 750 GS", "category": "adventure", "license": "A",
+      "cc": 853, "power": 95, "weight": 229, "consumption": 4.6, "tank": 15,
+      "years": "2018–2025", "price": { "min": 40000, "max": 62000 },
+      "desc": "Środkowa klasa adventure z równoległym twinem 270°. Fajna na co dzień i w terenie."
+    },
+    {
+      "brand": "BMW", "model": "G 310 GS", "category": "adventure", "license": "A2",
+      "cc": 313, "power": 34, "weight": 169, "consumption": 3.5, "tank": 11,
+      "years": "2017–2025", "price": { "min": 16000, "max": 26000 },
+      "desc": "Lekki adventure do miasta i szutrowych wypadów. Tani w serwisie."
+    },
+    {
+      "brand": "BMW", "model": "F 800 GS", "category": "dual", "license": "A",
+      "cc": 798, "power": 86, "weight": 214, "consumption": 4.8, "tank": 16,
+      "years": "2008–2018", "price": { "min": 22000, "max": 38000 },
+      "desc": "Klasyk dual sport: lekki(ish), z 21-calowym przednim kołem i paskiem z tyłu."
+    },
+    {
+      "brand": "BMW", "model": "S 1000 XR", "category": "turystyczny", "license": "A",
+      "cc": 999, "power": 165, "weight": 226, "consumption": 6.0, "tank": 20,
+      "years": "2015–2025", "price": { "min": 45000, "max": 80000 },
+      "desc": "Turystyk z duszą superbike'a. Do szybkiego przemieszczania się między zakrętami."
+    },
+    {
+      "brand": "KTM", "model": "790 Adventure", "category": "adventure", "license": "A",
+      "cc": 799, "power": 95, "weight": 189, "consumption": 4.7, "tank": 20,
+      "years": "2019–2021", "price": { "min": 34000, "max": 48000 },
+      "desc": "Lekki adventure z nisko położonym bakiem — świetnie prowadzi się w terenie."
+    },
+    {
+      "brand": "KTM", "model": "890 Adventure R", "category": "adventure", "license": "A",
+      "cc": 889, "power": 105, "weight": 196, "consumption": 4.8, "tank": 20,
+      "years": "2021–2025", "price": { "min": 48000, "max": 70000 },
+      "desc": "Zawieszenie z pełną regulacją i geometria z rajdówki. Dla wprawnych w terenie."
+    },
+    {
+      "brand": "KTM", "model": "390 Adventure", "category": "adventure", "license": "A2",
+      "cc": 373, "power": 44, "weight": 158, "consumption": 3.6, "tank": 14.5,
+      "years": "2020–2025", "price": { "min": 22000, "max": 33000 },
+      "desc": "Lekki, zwinny, z porządnym zawieszeniem na szutry. Świetny na początek."
+    },
+    {
+      "brand": "KTM", "model": "690 Enduro R", "category": "dual", "license": "A",
+      "cc": 693, "power": 74, "weight": 146, "consumption": 4.4, "tank": 13.8,
+      "years": "2008–2025", "price": { "min": 26000, "max": 50000 },
+      "desc": "Najlżejszy duży singiel w klasie. Kopnięcie w plecy i piach latający za kołem."
+    },
+    {
+      "brand": "KTM", "model": "1290 Super Adventure S", "category": "adventure", "license": "A",
+      "cc": 1301, "power": 160, "weight": 245, "consumption": 5.9, "tank": 23,
+      "years": "2017–2024", "price": { "min": 52000, "max": 85000 },
+      "desc": "Rakieta na kołach — 160 KM w wyprawówce z radarem i tempomatem adaptacyjnym."
+    },
+    {
+      "brand": "KTM", "model": "Duke 390", "category": "naked", "license": "A2",
+      "cc": 399, "power": 44, "weight": 168, "consumption": 3.8, "tank": 13.4,
+      "years": "2017–2023", "price": { "min": 16000, "max": 27000 },
+      "desc": "Lekki i pazerny na zakręty. Jeden z najlepszych motocykli do nauki dynamiki."
+    },
+    {
+      "brand": "Ducati", "model": "Multistrada 950 / V2", "category": "adventure", "license": "A",
+      "cc": 937, "power": 113, "weight": 222, "consumption": 5.6, "tank": 20,
+      "years": "2017–2024", "price": { "min": 42000, "max": 70000 },
+      "desc": "Ducati na dłuższe trasy. Charakter, dźwięk i pełna elektronika."
+    },
+    {
+      "brand": "Ducati", "model": "Scrambler Icon", "category": "klasyk", "license": "A",
+      "cc": 803, "power": 73, "weight": 186, "consumption": 5.0, "tank": 13.5,
+      "years": "2015–2024", "price": { "min": 28000, "max": 48000 },
+      "desc": "Styl i prostota. Dobra na miasto i krótkie wypady na kawę do Chełmna."
+    },
+    {
+      "brand": "Ducati", "model": "Monster 821", "category": "naked", "license": "A",
+      "cc": 821, "power": 109, "weight": 180, "consumption": 5.6, "tank": 16.5,
+      "years": "2014–2020", "price": { "min": 26000, "max": 42000 },
+      "desc": "Klasyczny naked Ducati — lekki, z charakterem Testastretta."
+    },
+    {
+      "brand": "Triumph", "model": "Tiger 900 Rally Pro", "category": "adventure", "license": "A",
+      "cc": 888, "power": 108, "weight": 201, "consumption": 5.1, "tank": 20,
+      "years": "2020–2025", "price": { "min": 48000, "max": 72000 },
+      "desc": "Trzy cylindry, zawieszenie Showa i wyposażenie na poziomie flagowca."
+    },
+    {
+      "brand": "Triumph", "model": "Tiger 800 XC", "category": "adventure", "license": "A",
+      "cc": 800, "power": 95, "weight": 215, "consumption": 5.0, "tank": 19,
+      "years": "2011–2018", "price": { "min": 24000, "max": 40000 },
+      "desc": "Klasyk adventure ze szprychami 21\". Trzy cylindry i wygodna pozycja."
+    },
+    {
+      "brand": "Triumph", "model": "Bonneville T100 / T120", "category": "klasyk", "license": "A",
+      "cc": 900, "power": 65, "weight": 213, "consumption": 4.6, "tank": 14,
+      "years": "2016–2025", "price": { "min": 30000, "max": 52000 },
+      "desc": "Klasa i spokój. Idealny na niedzielne przejażdżki z plecaczkiem."
+    },
+    {
+      "brand": "Royal Enfield", "model": "Himalayan 411", "category": "dual", "license": "A2",
+      "cc": 411, "power": 25, "weight": 199, "consumption": 3.5, "tank": 15,
+      "years": "2018–2024", "price": { "min": 14000, "max": 21000 },
+      "desc": "Tani, prosty i zaskakująco dobry w terenie. Motocykl do wolnych podróży."
+    },
+    {
+      "brand": "Royal Enfield", "model": "Interceptor 650", "category": "klasyk", "license": "A2",
+      "cc": 648, "power": 47, "weight": 202, "consumption": 4.4, "tank": 13.7,
+      "years": "2019–2025", "price": { "min": 18000, "max": 27000 },
+      "desc": "Retro-twin w cenie skutera. Świetny stosunek stylu do wydanych złotówek."
+    },
+    {
+      "brand": "Benelli", "model": "TRK 502 / 502X", "category": "adventure", "license": "A2",
+      "cc": 500, "power": 48, "weight": 235, "consumption": 4.5, "tank": 20,
+      "years": "2017–2024", "price": { "min": 13000, "max": 23000 },
+      "desc": "Najtańszy sposób na adventure z sakwami. Ciężki, ale komfortowy."
+    },
+    {
+      "brand": "Benelli", "model": "Leoncino 500", "category": "klasyk", "license": "A2",
+      "cc": 500, "power": 48, "weight": 196, "consumption": 4.3, "tank": 13,
+      "years": "2017–2024", "price": { "min": 12000, "max": 20000 },
+      "desc": "Stylowy scrambler na początek. Idealny dla niższych osób."
+    },
+    {
+      "brand": "CFMOTO", "model": "800MT Touring", "category": "adventure", "license": "A",
+      "cc": 799, "power": 91, "weight": 231, "consumption": 5.2, "tank": 19,
+      "years": "2021–2025", "price": { "min": 32000, "max": 45000 },
+      "desc": "Bardzo dobrze wyposażony adventure w cenie używanej konkurencji. Radarowe tempomaty."
+    },
+    {
+      "brand": "CFMOTO", "model": "450MT", "category": "adventure", "license": "A2",
+      "cc": 449, "power": 44, "weight": 175, "consumption": 3.9, "tank": 17.5,
+      "years": "2024–2025", "price": { "min": 25000, "max": 32000 },
+      "desc": "Lekki adventure z 21-calowym kołem. Dużo terenu za rozsądne pieniądze."
+    },
+    {
+      "brand": "Voge", "model": "300 Rally", "category": "dual", "license": "A2",
+      "cc": 292, "power": 28, "weight": 158, "consumption": 3.3, "tank": 11.8,
+      "years": "2022–2025", "price": { "min": 15000, "max": 21000 },
+      "desc": "Lekki jednoślad do szutrów. Świetna alternatywa dla WR250R."
+    },
+    {
+      "brand": "Husqvarna", "model": "Svartpilen 401", "category": "naked", "license": "A2",
+      "cc": 373, "power": 44, "weight": 152, "consumption": 3.7, "tank": 9.5,
+      "years": "2018–2023", "price": { "min": 15000, "max": 23000 },
+      "desc": "Lekki, stylowy, zwinny. Mały bak, ale mnóstwo frajdy w mieście."
+    },
+    {
+      "brand": "Husqvarna", "model": "701 Enduro", "category": "dual", "license": "A",
+      "cc": 693, "power": 74, "weight": 145, "consumption": 4.5, "tank": 13,
+      "years": "2016–2024", "price": { "min": 30000, "max": 52000 },
+      "desc": "Bliźniak KTMa 690 Enduro. Lekki jak rower, mocny jak enduro."
+    },
+    {
+      "brand": "Moto Guzzi", "model": "V85 TT", "category": "adventure", "license": "A",
+      "cc": 853, "power": 80, "weight": 229, "consumption": 4.9, "tank": 23,
+      "years": "2019–2025", "price": { "min": 35000, "max": 55000 },
+      "desc": "Charakterystyczny V-twin w poprzek. Styl retro-enduro i wysoki komfort."
+    },
+    {
+      "brand": "Aprilia", "model": "Tuareg 660", "category": "adventure", "license": "A",
+      "cc": 659, "power": 80, "weight": 187, "consumption": 4.6, "tank": 18,
+      "years": "2022–2025", "price": { "min": 42000, "max": 58000 },
+      "desc": "Lekki adventure z poważnym zawieszeniem. Jedna z najlepszych terenowych propozycji."
+    },
+    {
+      "brand": "Aprilia", "model": "RS 660", "category": "sportowy", "license": "A",
+      "cc": 659, "power": 100, "weight": 183, "consumption": 4.9, "tank": 15,
+      "years": "2020–2025", "price": { "min": 38000, "max": 55000 },
+      "desc": "Nowoczesna sportowa 660-tka. Torowy charakter i kultura pracy."
+    },
+    {
+      "brand": "Harley-Davidson", "model": "Sportster Iron 883", "category": "cruiser", "license": "A",
+      "cc": 883, "power": 51, "weight": 256, "consumption": 5.4, "tank": 12.5,
+      "years": "2009–2020", "price": { "min": 26000, "max": 45000 },
+      "desc": "Klasyczny cruiser do powolnego toczenia się ulicami. Uwaga na wysokość siedzenia."
+    },
+    {
+      "brand": "Harley-Davidson", "model": "Pan America 1250", "category": "adventure", "license": "A",
+      "cc": 1252, "power": 152, "weight": 258, "consumption": 6.1, "tank": 21,
+      "years": "2021–2025", "price": { "min": 62000, "max": 95000 },
+      "desc": "Amerykańskie adventure z regulowanym zawieszeniem (ARH) i mocnym V2."
+    },
+    {
+      "brand": "Honda", "model": "CRF300L / Rally", "category": "dual", "license": "A2",
+      "cc": 286, "power": 27, "weight": 142, "consumption": 3.2, "tank": 12.8,
+      "years": "2021–2025", "price": { "min": 20000, "max": 30000 },
+      "desc": "Lekki dual sport do lasu i na gruntówki. Wybacza, uczy i nie pali dużo."
+    },
+    {
+      "brand": "Honda", "model": "Rebel 500", "category": "cruiser", "license": "A2",
+      "cc": 471, "power": 46, "weight": 191, "consumption": 3.9, "tank": 11.2,
+      "years": "2017–2025", "price": { "min": 21000, "max": 33000 },
+      "desc": "Niski, lekki cruiser idealny dla początkujących i niższych osób."
+    },
+    {
+      "brand": "Yamaha", "model": "XMAX 300", "category": "skuter", "license": "A2",
+      "cc": 292, "power": 28, "weight": 180, "consumption": 3.2, "tank": 13,
+      "years": "2017–2025", "price": { "min": 18000, "max": 30000 },
+      "desc": "Skuter miejski z komfortem turystyka. Zaskakująco szybki w mieście."
+    },
+    {
+      "brand": "Suzuki", "model": "Burgman 400", "category": "skuter", "license": "A2",
+      "cc": 400, "power": 31, "weight": 215, "consumption": 3.8, "tank": 13.5,
+      "years": "2007–2025", "price": { "min": 12000, "max": 28000 },
+      "desc": "Duży skuter do miasta i na krótkie trasy. Wygodny, pojemny i praktyczny."
+    },
+    {
+      "brand": "Kawasaki", "model": "Ninja 650", "category": "sportowy", "license": "A2",
+      "cc": 649, "power": 68, "weight": 193, "consumption": 4.4, "tank": 15,
+      "years": "2017–2024", "price": { "min": 23000, "max": 36000 },
+      "desc": "Sportowy turystyk, który nie męczy. Dobry na pierwsze dłuższe trasy."
+    },
+    {
+      "brand": "BMW", "model": "R 1150 GS Adventure", "category": "adventure", "license": "A",
+      "cc": 1130, "power": 98, "weight": 253, "consumption": 5.8, "tank": 30,
+      "years": "2001–2007", "price": { "min": 14000, "max": 26000 },
+      "desc": "Prawdziwy klasyk wyprawowy. 30-litrowy bak i niezłomność boksera."
+    },
+    {
+      "brand": "KTM", "model": "EXC 500 / 450", "category": "enduro", "license": "A",
+      "cc": 510, "power": 63, "weight": 112, "consumption": 4.2, "tank": 8.5,
+      "years": "2012–2025", "price": { "min": 24000, "max": 52000 },
+      "desc": "Hard enduro. W terenie nie do zatrzymania, na asfalcie wymaga poświęceń."
+    },
+    {
+      "brand": "Yamaha", "model": "MT-09 / Tracer 9", "category": "naked", "license": "A",
+      "cc": 890, "power": 119, "weight": 193, "consumption": 5.2, "tank": 14,
+      "years": "2013–2025", "price": { "min": 28000, "max": 55000 },
+      "desc": "Trzy cylindry i mnóstwo momentu. W wersji Tracer — szybki turystyk."
+    },
+    {
+      "brand": "Suzuki", "model": "DR-Z 400", "category": "dual", "license": "A2",
+      "cc": 398, "power": 40, "weight": 144, "consumption": 3.8, "tank": 10,
+      "years": "2000–2024", "price": { "min": 14000, "max": 28000 },
+      "desc": "Kultowy dual sport. Prosty, lekki i gotowy na każdy szuter."
+    },
+    {
+      "brand": "Honda", "model": "Gold Wing GL1800", "category": "turystyczny", "license": "A",
+      "cc": 1833, "power": 126, "weight": 366, "consumption": 6.8, "tank": 21,
+      "years": "2018–2025", "price": { "min": 70000, "max": 130000 },
+      "desc": "Fotel na kołach: poduszka powietrzna, audio, DCT i komfort limuzyny."
+    },
+    {
+      "brand": "Honda", "model": "X-ADV 750", "category": "skuter", "license": "A",
+      "cc": 745, "power": 58, "weight": 236, "consumption": 3.9, "tank": 13.2,
+      "years": "2017–2025", "price": { "min": 32000, "max": 50000 },
+      "desc": "Skuter-adventure z DCT. Zaskakująco dobry na szutrach i w mieście."
+    },
+    {
+      "brand": "Zero", "model": "DS / DSR", "category": "dual", "license": "A",
+      "cc": 0, "power": 60, "weight": 189, "consumption": 0, "tank": 0,
+      "years": "2020–2025", "price": { "min": 45000, "max": 80000 },
+      "desc": "Elektryczny dual sport: zero spalin, zero hałasu, pełny moment od zera."
+    }
+  ]
 }
