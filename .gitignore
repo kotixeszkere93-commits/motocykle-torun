@@ -1,0 +1,25 @@
+# Systemy
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Edytory
+.vscode/
+.idea/
+*.swp
+
+# Node (aplikacja nie ma kroku budowania — to tylko narzędzia pomocnicze)
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Firebase
+.firebase/
+firebase-debug.log
+*-debug.log
+
+# Pliki tymczasowe
+*.tmp
+*.bak
+*.orig
